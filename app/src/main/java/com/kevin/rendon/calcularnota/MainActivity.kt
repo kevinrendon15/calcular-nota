@@ -60,7 +60,6 @@ class MainActivity : AppCompatActivity() {
                 ingresarNota.text.clear()
                 ingresarPorcentaje.text.clear()
 
-                porcentajeAcumulado += porcentaje.toInt()
                 actualizarProgreso(porcentajeAcumulado)
 
                 Toast.makeText(this, "la nota ingresada es correcta",

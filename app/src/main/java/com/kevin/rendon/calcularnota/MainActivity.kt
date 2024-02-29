@@ -9,12 +9,12 @@ import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var ingresarNombre : EditText
-    private lateinit var ingresarPorcentaje : EditText
-    private lateinit var ingresarNota : EditText
-    private lateinit var finalizar : Button
-    private lateinit var guardar : Button
-    private lateinit var progreso : ProgressBar
+    private lateinit var ingresarNombre: EditText
+    private lateinit var ingresarPorcentaje: EditText
+    private lateinit var ingresarNota: EditText
+    private lateinit var finalizar: Button
+    private lateinit var guardar: Button
+    private lateinit var progreso: ProgressBar
 
     private var porcentajeAcumulado = 0
 
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         guardar = findViewById(R.id.guardar)
         progreso = findViewById(R.id.progreso)
 
-        guardar.setOnClickListener{
+        guardar.setOnClickListener {
 
             val nota = ingresarNota.text.toString()
 
@@ -41,16 +41,21 @@ class MainActivity : AppCompatActivity() {
 
             val nombre = ingresarNombre.text.toString()
 
-            if (nota.isNullOrEmpty() || porcentaje.isNullOrEmpty() || nombre.isNullOrEmpty()){
+            if (nota.isNullOrEmpty() || porcentaje.isNullOrEmpty() || nombre.isNullOrEmpty()) {
 
-                Toast.makeText(this,"los datos ingresados no son validos",
-                    Toast.LENGTH_LONG ).show()
+                Toast.makeText(
+                    this, "los datos ingresados no son validos",
+                    Toast.LENGTH_LONG
+                ).show()
                 return@setOnClickListener
             }
 
 
 
-            if( validarNota(nota.toDouble()) && validarPorcentaje(porcentaje.toInt()) && validarNombre(nombre)){
+            if (validarNota(nota.toDouble()) && validarPorcentaje(porcentaje.toInt()) && validarNombre(
+                    nombre
+                )
+            ) {
                 listaNotas.add(nota.toDouble())
 
                 listaPorcentaje.add(porcentaje.toInt())
@@ -62,17 +67,22 @@ class MainActivity : AppCompatActivity() {
 
                 actualizarProgreso(porcentajeAcumulado)
 
-                Toast.makeText(this, "la nota ingresada es correcta",
-                   Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    this, "la nota ingresada es correcta",
+                    Toast.LENGTH_LONG
+                ).show()
             } else {
 
-             Toast.makeText(this,"los datos ingresados no son validos",
-                    Toast.LENGTH_LONG ).show()
+                Toast.makeText(
+                    this, "los datos ingresados no son validos",
+                    Toast.LENGTH_LONG
+                ).show()
 
             }
         }
 
     }
+
     fun actualizarProgreso(porcentaje: Int) {
 
         progreso.progress = porcentaje
@@ -84,21 +94,49 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun validarNota(nota : Double): Boolean{
+    fun validarNota(nota: Double): Boolean {
 
-        return  nota >=0 && nota <=5
-
+        return nota >= 0 && nota <= 5
 
 
     }
 
-        fun validarPorcentaje(porcentaje: Int): Boolean{
-        return  porcentajeAcumulado + porcentaje <=100
+    fun validarPorcentaje(porcentaje: Int): Boolean {
+        return porcentajeAcumulado + porcentaje <= 100
 
+    }
+
+    fun validarNombre(nombre: String): Boolean {
+        return !nombre.matches(Regex(".*\\d.*"))
+    }
+
+
+}
+
+class Estudiante() {
+
+    val nombre: String = ""
+    val notas:List<Double> = listOf()
+    val porcentajes : List<Int>  = listOf()
+
+    fun calcularPromedio ():Double{
+        var sumaNotas = 0.0
+        for (n in notas){
+            sumaNotas += n
         }
 
-         fun validarNombre(nombre: String): Boolean{
-             return !nombre.matches(Regex (".*\\d.*"))
-         }
+        return sumaNotas / notas.size
 
     }
+
+    fun notaFinal():Double{
+        var notaFinal : Double = 0.0
+        var contador = 0
+
+        for (n in notas){
+            notaFinal += (n *(contador)/100)
+        }
+    }
+
+
+}

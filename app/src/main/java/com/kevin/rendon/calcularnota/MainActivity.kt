@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
@@ -15,6 +16,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var finalizar: Button
     private lateinit var guardar: Button
     private lateinit var progreso: ProgressBar
+    private lateinit var vistaPromedio: TextView
+    private lateinit var vistaNotaFinal: TextView
+    private lateinit var siguienteEstudiante: Button
+    private lateinit var estudianteActual : Estudiante = Estudiante()
 
     private var porcentajeAcumulado = 0
 
@@ -32,6 +37,14 @@ class MainActivity : AppCompatActivity() {
         finalizar = findViewById(R.id.finalizar)
         guardar = findViewById(R.id.guardar)
         progreso = findViewById(R.id.progreso)
+        siguienteEstudiante = findViewById(R.id.siguienteEstudiante)
+
+       finalizar.setOnClickListener{
+           vistaNotaFinal.text = "nota final :" + estudianteActual.notaFinal()
+           vistaPromedio.text = "promedio :" + estudianteActual.calcularPromedio()
+           siguienteEstudiante.isEnabled = true
+       }
+
 
         guardar.setOnClickListener {
 
@@ -89,6 +102,9 @@ class MainActivity : AppCompatActivity() {
 
         if (porcentaje >= 100) {
             finalizar.isEnabled = true
+            estudianteActual.nombre = (ingresarNombre.text.toString())
+            estudianteActual.porcentajes = listaPorcentaje
+            estudianteActual.notas = listaNotas
 
         }
 
@@ -134,8 +150,10 @@ class Estudiante() {
         var contador = 0
 
         for (n in notas){
-            notaFinal += (n *(contador)/100)
+            notaFinal += (n * porcentajes[contador])/100
+            contador++
         }
+        return notaFinal
     }
 
 

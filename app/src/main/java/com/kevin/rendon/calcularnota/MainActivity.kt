@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         guardar = findViewById(R.id.guardar)
         progreso = findViewById(R.id.progreso)
         siguienteEstudiante = findViewById(R.id.siguienteestudiante)
+        vistaNotaFinal = findViewById(R.id.vistaNotaFinal)
 
         siguienteEstudiante.setOnClickListener{
             nuevoEstudiante()

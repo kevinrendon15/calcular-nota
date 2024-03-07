@@ -121,6 +121,8 @@ class MainActivity : AppCompatActivity() {
         vistaPromedio.text = ""
         vistaNotaFinal.text = ""
 
+        ingresarNombre.isEnabled = true
+
     }
 
     fun validarNota(nota: Double): Boolean {

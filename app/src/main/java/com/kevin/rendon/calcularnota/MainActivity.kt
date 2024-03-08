@@ -40,8 +40,10 @@ class MainActivity : AppCompatActivity() {
         vistaNotaFinal = findViewById(R.id.vistaNotaFinal)
         vistaPromedio = findViewById(R.id.vistaPromedio)
 
-        siguienteEstudiante.setOnClickListener{
+         siguienteEstudiante.setOnClickListener{
             nuevoEstudiante()
+             listaPorcentaje.clear()
+             listaNotas.clear()
         }
 
        finalizar.setOnClickListener{
